@@ -13,7 +13,7 @@ public class Person {
     private byte status; //0 là đang hoạt động bình thường
     // người dùng nào cũng tìm thấy, 1 là khóa tạm thời
     // (admin vẫn thấy, các người dùng khác ko thấy) sau ...
-    // xóa vính viễn, và admin xóa vĩnh viên tức là mọi người
+    // xóa vính viễn 2, và admin xóa vĩnh viên tức là mọi người
     // đều ko nhìn thấy
     // Nếu tài khoản trùng email với tài khoản có status là 1 thì vẫn tình là trùng, còn 2 thì là không trùng.
     private boolean admin; //true là admin.
@@ -35,12 +35,12 @@ public class Person {
         return "Person{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", sex=" + sex +
+                ", sex=" + (sex == 0 ? "Nam" : sex == 1 ? "Nữ" : "Khác") +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", address='" + address + '\'' +
                 ", admin=" + admin +
+                ", status=" + status +
                 '}';
     }
 
@@ -52,7 +52,7 @@ public class Person {
         this.admin = admin;
     }
 
-    public Person(int id, String name, byte sex, String email, String password, String phoneNumber, String address, boolean admin) {
+    public Person(int id, String name, byte sex, String email, String password, String phoneNumber, String address, boolean admin, byte status) {
         this.id = id;
         this.name = name;
         this.sex = sex;
@@ -61,6 +61,7 @@ public class Person {
         this.phoneNumber = phoneNumber;
         this.address = address;
         this.admin = admin;
+        this.status = status;
     }
 
     public Person() {

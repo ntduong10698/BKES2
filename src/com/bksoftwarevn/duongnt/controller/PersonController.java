@@ -34,7 +34,7 @@ public class PersonController {
         Person rs = new Person(AppConst.count++,
                 checkName(), checkSex(), checkEmail(),
                 checkPassword(), checkPhoneNumber(),
-                checkAddress(), false);
+                checkAddress(), false, (byte) 0);
         AppConst.listPerson.add(rs);
         System.out.println("*****Đăng ký thành công. Vui lòng đăng nhập để sử dụng hệ thống*****");
         return rs;
@@ -56,10 +56,12 @@ public class PersonController {
             if(isEmail(rs)) {
                 if(!checkInitEmail(rs)) {
                     break;
+                } else {
+                    System.out.println("Email đã tồn tại. Vui lòng nhập lại.");
                 }
-                System.out.println("Email đã tồn tại. Vui lòng nhập lại.");
+            } else {
+                printError("email");
             }
-            printError("email");
         }
         //to do
         return rs;
@@ -109,7 +111,7 @@ public class PersonController {
     public boolean checkInitEmail(String email) {
         boolean rs = false;
         for (Person p : AppConst.listPerson) {
-            if(p.getEmail().equals(email)) rs = true;
+            if(p.getStatus() <2 && p.getEmail().equals(email)) rs = true;
         }
         return rs;
     }
@@ -122,4 +124,39 @@ public class PersonController {
         System.out.println("Nhập lỗi định dạng của "+ text + ". Vui lòng nhập lại");
     }
 
+    //tìm kiếm
+    public void findByName(boolean admin) {
+        printInput("tìm kiếm theo tên");
+        int count = 0;
+        String name = new Scanner(System.in).nextLine();
+        for (Person p : AppConst.listPerson) {
+            if((p.getStatus() == 0 || (admin && p.getStatus() == 1))
+                && p.getName().toUpperCase().indexOf(name.toUpperCase()) > -1){
+                count++;
+                System.out.println(p);
+            }
+        }
+        if(count == 0) {
+            System.out.println("Không có trường thông tin phù hợp tìm kiếm!");
+        } else {
+            System.out.println("Có "+count+" người dùng phù hợp với tìm kiếm");
+        }
+    }
+
+    public void findByAddress(boolean admin) {
+        String address = new Scanner(System.in).nextLine();
+        int count = 0;
+        for (Person p : AppConst.listPerson) {
+            if((p.getStatus() == 0 || (admin && p.getStatus() == 1))
+                    && p.getAddress().toUpperCase().indexOf(address.toUpperCase()) > -1){
+                count++;
+                System.out.println(p);
+            }
+        }
+        if(count == 0) {
+            System.out.println("Không có trường thông tin phù hợp tìm kiếm!");
+        } else {
+            System.out.println("Có "+count+" người dùng phù hợp với tìm kiếm");
+        }
+    }
 }
