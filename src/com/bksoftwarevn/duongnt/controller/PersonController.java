@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class PersonController {
 
+    //tìm kiếm sign in, sign up, tìm kiếm, làm menu với menu admin.
     Scanner sc = new Scanner(System.in);
 
     //sign In

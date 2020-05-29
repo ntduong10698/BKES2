@@ -22,6 +22,14 @@ public class Person {
         this.sex = sex;
     }
 
+    public byte getStatus() {
+        return status;
+    }
+
+    public void setStatus(byte status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
